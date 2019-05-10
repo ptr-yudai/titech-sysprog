@@ -1,0 +1,3 @@
+false || ./fd | ./fd2 | ./fd2 > testB-or-output.txt
+true || ./fd | ./fd2 | ./fd2 > testB-or-output2.txt
+cat testB-or-output.txt testB-or-output2.txt

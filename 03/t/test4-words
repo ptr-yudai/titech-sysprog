@@ -1,0 +1,1 @@
+rev /usr/share/dict/words | cat /usr/share/dict/words - | sort | uniq -c | grep 2 | wc -l

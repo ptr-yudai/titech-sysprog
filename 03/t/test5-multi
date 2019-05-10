@@ -1,0 +1,2 @@
+rev < input.txt > output.txt
+cat output.txt

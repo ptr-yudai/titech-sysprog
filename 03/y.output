@@ -1,0 +1,418 @@
+Terminals unused in grammar
+
+   tAND
+
+
+文法
+
+    0 $accept: root $end
+
+    1 root: %empty
+    2     | exp
+
+    3 exp: logical_exp tSCOLON exp
+    4    | logical_exp
+
+    5 logical_exp: piped_exp tANDAND logical_exp
+    6            | piped_exp tOROR logical_exp
+    7            | piped_exp
+
+    8 piped_exp: redirect_exp tOR piped_exp
+    9          | redirect_exp
+
+   10 redirect_exp: redirect_exp tLT str
+   11             | redirect_exp tGT str
+   12             | redirect_exp tGT_ERR str
+   13             | redirect_exp tGTGT str
+   14             | cmd_exp
+
+   15 cmd_exp: tLPAREN exp tRPAREN
+   16        | strs
+
+   17 strs: str strs
+   18     | str
+
+   19 str: tBARE
+   20    | tQSTRING
+   21    | tQQSTRING
+
+
+出現位置の規則による終端
+
+$end (0) 0
+error (256)
+tANDAND (258) 5
+tOROR (259) 6
+tGTGT (260) 13
+tSCOLON (261) 3
+tAND (262)
+tOR (263) 8
+tLPAREN (264) 15
+tRPAREN (265) 15
+tLT (266) 10
+tGT (267) 11
+tGT_ERR (268) 12
+tBARE (269) 19
+tQSTRING (270) 20
+tQQSTRING (271) 21
+
+
+出現位置の規則による非終端
+
+$accept (17)
+    左辺: 0
+root (18)
+    左辺: 1 2, 右辺: 0
+exp (19)
+    左辺: 3 4, 右辺: 2 3 15
+logical_exp (20)
+    左辺: 5 6 7, 右辺: 3 4 5 6
+piped_exp (21)
+    左辺: 8 9, 右辺: 5 6 7 8
+redirect_exp (22)
+    左辺: 10 11 12 13 14, 右辺: 8 9 10 11 12 13
+cmd_exp (23)
+    左辺: 15 16, 右辺: 14
+strs (24)
+    左辺: 17 18, 右辺: 16 17
+str (25)
+    左辺: 19 20 21, 右辺: 10 11 12 13 17 18
+
+
+State 0
+
+    0 $accept: . root $end
+
+    tLPAREN    shift, and go to state 1
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    $default  reduce using rule 1 (root)
+
+    root          go to state 5
+    exp           go to state 6
+    logical_exp   go to state 7
+    piped_exp     go to state 8
+    redirect_exp  go to state 9
+    cmd_exp       go to state 10
+    strs          go to state 11
+    str           go to state 12
+
+
+State 1
+
+   15 cmd_exp: tLPAREN . exp tRPAREN
+
+    tLPAREN    shift, and go to state 1
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    exp           go to state 13
+    logical_exp   go to state 7
+    piped_exp     go to state 8
+    redirect_exp  go to state 9
+    cmd_exp       go to state 10
+    strs          go to state 11
+    str           go to state 12
+
+
+State 2
+
+   19 str: tBARE .
+
+    $default  reduce using rule 19 (str)
+
+
+State 3
+
+   20 str: tQSTRING .
+
+    $default  reduce using rule 20 (str)
+
+
+State 4
+
+   21 str: tQQSTRING .
+
+    $default  reduce using rule 21 (str)
+
+
+State 5
+
+    0 $accept: root . $end
+
+    $end  shift, and go to state 14
+
+
+State 6
+
+    2 root: exp .
+
+    $default  reduce using rule 2 (root)
+
+
+State 7
+
+    3 exp: logical_exp . tSCOLON exp
+    4    | logical_exp .
+
+    tSCOLON  shift, and go to state 15
+
+    $default  reduce using rule 4 (exp)
+
+
+State 8
+
+    5 logical_exp: piped_exp . tANDAND logical_exp
+    6            | piped_exp . tOROR logical_exp
+    7            | piped_exp .
+
+    tANDAND  shift, and go to state 16
+    tOROR    shift, and go to state 17
+
+    $default  reduce using rule 7 (logical_exp)
+
+
+State 9
+
+    8 piped_exp: redirect_exp . tOR piped_exp
+    9          | redirect_exp .
+   10 redirect_exp: redirect_exp . tLT str
+   11             | redirect_exp . tGT str
+   12             | redirect_exp . tGT_ERR str
+   13             | redirect_exp . tGTGT str
+
+    tGTGT    shift, and go to state 18
+    tOR      shift, and go to state 19
+    tLT      shift, and go to state 20
+    tGT      shift, and go to state 21
+    tGT_ERR  shift, and go to state 22
+
+    $default  reduce using rule 9 (piped_exp)
+
+
+State 10
+
+   14 redirect_exp: cmd_exp .
+
+    $default  reduce using rule 14 (redirect_exp)
+
+
+State 11
+
+   16 cmd_exp: strs .
+
+    $default  reduce using rule 16 (cmd_exp)
+
+
+State 12
+
+   17 strs: str . strs
+   18     | str .
+
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    $default  reduce using rule 18 (strs)
+
+    strs  go to state 23
+    str   go to state 12
+
+
+State 13
+
+   15 cmd_exp: tLPAREN exp . tRPAREN
+
+    tRPAREN  shift, and go to state 24
+
+
+State 14
+
+    0 $accept: root $end .
+
+    $default  accept
+
+
+State 15
+
+    3 exp: logical_exp tSCOLON . exp
+
+    tLPAREN    shift, and go to state 1
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    exp           go to state 25
+    logical_exp   go to state 7
+    piped_exp     go to state 8
+    redirect_exp  go to state 9
+    cmd_exp       go to state 10
+    strs          go to state 11
+    str           go to state 12
+
+
+State 16
+
+    5 logical_exp: piped_exp tANDAND . logical_exp
+
+    tLPAREN    shift, and go to state 1
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    logical_exp   go to state 26
+    piped_exp     go to state 8
+    redirect_exp  go to state 9
+    cmd_exp       go to state 10
+    strs          go to state 11
+    str           go to state 12
+
+
+State 17
+
+    6 logical_exp: piped_exp tOROR . logical_exp
+
+    tLPAREN    shift, and go to state 1
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    logical_exp   go to state 27
+    piped_exp     go to state 8
+    redirect_exp  go to state 9
+    cmd_exp       go to state 10
+    strs          go to state 11
+    str           go to state 12
+
+
+State 18
+
+   13 redirect_exp: redirect_exp tGTGT . str
+
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    str  go to state 28
+
+
+State 19
+
+    8 piped_exp: redirect_exp tOR . piped_exp
+
+    tLPAREN    shift, and go to state 1
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    piped_exp     go to state 29
+    redirect_exp  go to state 9
+    cmd_exp       go to state 10
+    strs          go to state 11
+    str           go to state 12
+
+
+State 20
+
+   10 redirect_exp: redirect_exp tLT . str
+
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    str  go to state 30
+
+
+State 21
+
+   11 redirect_exp: redirect_exp tGT . str
+
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    str  go to state 31
+
+
+State 22
+
+   12 redirect_exp: redirect_exp tGT_ERR . str
+
+    tBARE      shift, and go to state 2
+    tQSTRING   shift, and go to state 3
+    tQQSTRING  shift, and go to state 4
+
+    str  go to state 32
+
+
+State 23
+
+   17 strs: str strs .
+
+    $default  reduce using rule 17 (strs)
+
+
+State 24
+
+   15 cmd_exp: tLPAREN exp tRPAREN .
+
+    $default  reduce using rule 15 (cmd_exp)
+
+
+State 25
+
+    3 exp: logical_exp tSCOLON exp .
+
+    $default  reduce using rule 3 (exp)
+
+
+State 26
+
+    5 logical_exp: piped_exp tANDAND logical_exp .
+
+    $default  reduce using rule 5 (logical_exp)
+
+
+State 27
+
+    6 logical_exp: piped_exp tOROR logical_exp .
+
+    $default  reduce using rule 6 (logical_exp)
+
+
+State 28
+
+   13 redirect_exp: redirect_exp tGTGT str .
+
+    $default  reduce using rule 13 (redirect_exp)
+
+
+State 29
+
+    8 piped_exp: redirect_exp tOR piped_exp .
+
+    $default  reduce using rule 8 (piped_exp)
+
+
+State 30
+
+   10 redirect_exp: redirect_exp tLT str .
+
+    $default  reduce using rule 10 (redirect_exp)
+
+
+State 31
+
+   11 redirect_exp: redirect_exp tGT str .
+
+    $default  reduce using rule 11 (redirect_exp)
+
+
+State 32
+
+   12 redirect_exp: redirect_exp tGT_ERR str .
+
+    $default  reduce using rule 12 (redirect_exp)

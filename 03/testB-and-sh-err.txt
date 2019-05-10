@@ -1,0 +1,1 @@
+cat: testB-and-output2.txt: そのようなファイルやディレクトリはありません

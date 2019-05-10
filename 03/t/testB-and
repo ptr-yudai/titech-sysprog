@@ -1,0 +1,3 @@
+true && ./fd | ./fd2 | ./fd2 > testB-and-output.txt
+false && ./fd | ./fd2 | ./fd2 > testB-and-output2.txt
+cat testB-and-output.txt testB-and-output2.txt

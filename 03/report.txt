@@ -1,0 +1,120 @@
+# [注意]
+# 下記の # で始まるコメント行を変更（修正，削除）しないこと．
+# 課題Nの回答は，### ExerciseN ### のコメント行の下の領域に記述して下さい．
+
+### ID ### 学籍番号を「NN_NNNNN」のように書いて下さい
+17B17355
+
+### Email ### mメールアドレスを書いて下さい
+fujiwara.y.am@m.titech.ac.jp
+
+### Name ### 氏名を「東工 太郎」のように書いて下さい
+藤原 裕大
+
+### Exercise1 ### 課題1
+# 実行結果をまるごとペーストせよ．
+In main():  pid=15616, ppid=5595
+In child(): pid=15617, ppid=15616
+In child(): Process 15617 terminated.
+In main():  Process 15616 terminated.
+
+### Exercise2 ### 課題2
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+mysh[1]% uname -a
+Linux medium-pwn 4.18.0-18-generic #19~18.04.1-Ubuntu SMP Fri Apr 5 10:22:13 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+mysh[2]% id
+uid=1000(ptr) gid=1000(ptr) groups=1000(ptr),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),116(lpadmin),126(sambashare),999(docker)
+mysh[3]% grep LOG -rl .
+./mysh.c
+./lex.yy.c
+./mysh.h~
+./mysh.h
+./mysh.c~
+./mysh-main.c
+./mysh-scan.l
+mysh[4]% 
+
+### Exercise3 ### 課題3
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+$ ./mysh -q
+mysh[1]% cat mysh.h | grep LOG
+#define LOG(...) l_logf(__FILE__, __LINE__, __func__, __VA_ARGS__)
+mysh[2]% ps aux | grep mysh
+ptr      15683  0.0  0.0   4544   884 pts/1    S+   13:26   0:00 ./mysh -q
+ptr      15688  0.0  0.0   4544   100 pts/1    S+   13:27   0:00 ./mysh -q
+ptr      15689  0.0  0.0   4544   100 pts/1    S+   13:27   0:00 ./mysh -q
+ptr      15690  0.0  0.0  22560  1004 pts/1    S+   13:27   0:00 grep mysh
+mysh[3]% cat /etc/issue | rev      
+l\ n\ STL 2.40.81 utnubU
+
+mysh[4]% 
+
+### Exercise4 ### 課題4
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+mysh[1]% cat /dev/urandom | head -c 8 | hexdump -C
+00000000  41 0a 89 f6 3f 4d d7 0c                           |A...?M..|
+00000008
+mysh[2]% ^C
+ptr@medium-pwn:~/workspace/titech/sysprog/03$ ./mysh -q
+mysh[1]% cat /dev/urandom | head -c 16 | hexdump -C
+00000000  13 d1 24 f3 82 ff 2e fa  a0 d4 09 28 3f be e5 ee  |..$........(?...|
+00000010
+mysh[2]% rev /usr/share/dict/words | cat /usr/share/dict/words - | sort | uniq -c | grep 2 | wc -l
+463
+mysh[3]% ps aux | grep mysh | egrep grep | awk '{print $2}'              
+16532
+mysh[4]% 
+
+### Exercise5 ### 課題5
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+mysh[1]% pwd > /tmp/result.txt
+mysh[2]% cat < /tmp/result.txt | rev > /tmp/result2.txt
+mysh[3]% cat /tmp/result.txt
+/home/ptr/workspace/titech/sysprog/03
+mysh[4]% cat /tmp/result2.txt
+30/gorpsys/hcetit/ecapskrow/rtp/emoh/
+mysh[5]% 
+
+### ExerciseA ### 発展課題A
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+mysh[1]% echo Hello; echo World > /tmp/hoge
+Hello
+mysh[2]% ls -lh /tmp/hoge; cat /tmp/hoge; rev /tmp/hoge
+-rw-r--r-- 1 ptr ptr 6  5月 10 13:34 /tmp/hoge
+World
+dlroW
+mysh[3]% 
+
+### ExerciseB ### 発展課題B
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+mysh[1]% ls /tmp/hoge || echo Hello, World > /tmp/hoge && rev /tmp/hoge
+ls: '/tmp/hoge' にアクセスできません: そのようなファイルやディレクトリはありません
+dlroW ,olleH
+mysh[2]% ls /tmp/hoge || echo Quick Brown Fox > /tmp/hoge && rev /tmp/hoge
+/tmp/hoge
+dlroW ,olleH
+mysh[3]% 
+
+### ExerciseC ### 発展課題C
+# 実装完了したことを示すための適当なコマンドの実行結果をまるごと（myshプロンプト含めて）ペーストせよ．
+# 未完部分がある場合は明示せよ．
+mysh[1]% (echo Hello; echo World) > /tmp/hoge
+mysh[2]% (hostname; whoami) > /tmp/huga
+mysh[3]% (cat /tmp/hoge; cat /tmp/huga) > /tmp/foo
+mysh[4]% cat /tmp/foo
+Hello
+World
+medium-pwn
+ptr
+mysh[5]% 
+
+### Comment ### 感想（採点対象外，好きに書いて下さい．）
+面白かったです。
+
+### END ###
