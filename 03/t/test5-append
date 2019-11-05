@@ -1,3 +1,0 @@
-echo foo > test5-append-output.txt
-echo bar >> test5-append-output.txt
-cat test5-append-output.txt

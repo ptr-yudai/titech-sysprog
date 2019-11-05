@@ -1,1 +1,0 @@
-t/test5-multi: 1: t/test5-multi: cannot open input.txt: No such file

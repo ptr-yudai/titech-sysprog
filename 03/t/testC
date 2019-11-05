@@ -1,2 +1,0 @@
-( ./fd; echo hello | ./fd2 | ./fd2 ) > testC-output.txt
-cat testC-output.txt

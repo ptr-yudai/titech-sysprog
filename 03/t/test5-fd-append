@@ -1,3 +1,0 @@
-./fd | ./fd2 | ./fd2 > test5-fd-append-output.txt
-./fd | ./fd2 | ./fd2 >> test5-fd-append-output.txt
-cat test5-fd-append-output.txt

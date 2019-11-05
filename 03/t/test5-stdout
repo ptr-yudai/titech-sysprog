@@ -1,2 +1,0 @@
-echo foo > test5-stdout-output.txt
-cat test5-stdout-output.txt
